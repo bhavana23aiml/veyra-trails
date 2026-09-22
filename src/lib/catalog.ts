@@ -8,9 +8,9 @@ export const photos = {
   hero: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85',
   valley: 'https://images.unsplash.com/photo-1472396961693-142e6e269027?auto=format&fit=crop&w=1200&q=85',
   lake: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1200&q=85',
-  alpine: 'https://images.unsplash.com/photo-1469817805249-72b7df7d0db3?auto=format&fit=crop&w=1400&q=85',
+  alpine: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85',
   forest: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85',
-  camping: 'https://images.unsplash.com/photo-1478131143081-fd1d56a7e2e5?auto=format&fit=crop&w=1000&q=85',
+  camping: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=85',
 };
 const rows: [string,string,number,number,number,number,string,string][] = [
   ['Hampta Pass','Himachal Pradesh',5,4270,26,8999,'Moderate',photos.alpine],
