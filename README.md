@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# VEYRA TRAILS
 
-## Getting Started
+Next.js 15 / React 19 / TypeScript / Tailwind / Supabase / Framer Motion.
 
-First, run the development server:
+## Implemented
+Editorial homepage, catalog discovery with URL filters/sorting/pagination, journey dossiers, deterministic preference matching, Supabase account flows, saved journeys, and authorized admin catalog CRUD. Fifteen explicitly sample treks and eight destinations are supplied. All reservations remain disabled.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Supabase setup
+Set the public Supabase URL and anonymous key listed in `.env.example` in your hosting environment. Apply `supabase/migrations/001_catalog.sql` through the Supabase SQL editor, followed by `supabase/seed.sql`. These files are provided but have not been remotely applied or tested by this implementation.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Enable email confirmation in Supabase Auth. Configure your deployed site URL and allow `/auth/callback` and `/account` as auth redirect URLs. Configure SMTP for production delivery. Email verification is determined by Supabase Auth, not editable profile metadata. Registration creates profiles through a database trigger.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Grant administrator membership by inserting an existing verified user's UUID into `public.admins` through a trusted database administrator. Clients cannot grant themselves access. `/admin` provides journey creation, editing, publication and archival; all writes are constrained by RLS. It cannot enable payments or live inventory.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+When the catalog is unavailable, the public experience displays a labeled local inspiration collection. This is not a production-data substitute. Saved collections require a configured, migrated database. Published database catalogs with zero records remain empty.
 
-## Learn More
+## Deployment and verification
+Deploy as a Next.js project on Vercel with environment variables configured. Confirm auth redirects match the production origin. Production build uses the existing package build script. Fonts and photographs use Google Fonts and Unsplash; photography is illustrative, not verified route imagery.
 
-To learn more about Next.js, take a look at the following resources:
+## Not implemented in this increment
+Reservations, participant collection, departure inventory, Razorpay order/verification/webhooks/refunds, booking dashboards, onboarding, AI generation/chat, packing persistence, weather/maps, reviews, application emails and reminders. Their environment variable names are reserved in `.env.example`; integrations are not claimed to work. No payment or AI success is simulated. Preference matching is deterministic, not AI-generated.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Before enabling sales, implement atomic inventory and payment reconciliation, verify operator data, add transactional integration tests and perform an RLS/security review. Authentication and persistence need end-to-end verification against the configured Supabase project. No service-role or payment secrets belong in browser code.

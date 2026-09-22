@@ -1,0 +1,5 @@
+'use client';
+import { useEffect, useState } from 'react';
+import { getSupabase } from '@/lib/supabase/browser';
+import Link from 'next/link';
+export default function Page(){const [message,setMessage]=useState('Checking your verification link…');useEffect(()=>{async function verify(){const db=getSupabase();if(!db){setMessage('Authentication is not configured. Please return to sign in.');return;}const url=new URL(window.location.href);const code=url.searchParams.get('code');if(code){const {error}=await db.auth.exchangeCodeForSession(code);if(error){setMessage('This link is invalid or has expired. Please request another verification email.');return;}}const {data:{user}}=await db.auth.getUser();if(user?.email_confirmed_at)window.location.replace('/account');else setMessage('We could not confirm your email. The link may have expired; please return to your account.');}verify()},[]);return <main className="mx-auto max-w-xl px-6 py-24"><h1 className="text-4xl">One small step before the trail begins.</h1><p role="status" className="my-6 text-muted-foreground">{message}</p><Link href="/account" className="text-primary underline">Return to your account</Link></main>}

@@ -1,0 +1,2 @@
+'use client';
+export default function ErrorPage({reset}:{error:Error;reset:()=>void}){return <main className="mx-auto max-w-xl px-6 py-24"><p className="text-xs tracking-widest text-accent">A SMALL DETOUR</p><h1 className="mt-4 text-5xl">Let’s find the path again.</h1><p className="my-6 text-muted-foreground">We couldn’t load this page. Please try again in a moment.</p><button onClick={reset} className="rounded-md bg-primary px-6 py-3 text-sm text-primary-foreground">Try again</button></main>}
