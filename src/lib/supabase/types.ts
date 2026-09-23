@@ -1,4 +1,5 @@
 import { Journey } from '@/lib/catalog';
+import type { Preferences } from './preferences';
 type Table<Row, Insert, Update, Relationships extends {foreignKeyName:string;columns:string[];isOneToOne:boolean;referencedRelation:string;referencedColumns:string[]}[] = []> = {Row:Row;Insert:Insert;Update:Update;Relationships:Relationships};
 type Trek = Journey & {destination_id:string|null;status:'draft'|'published'|'archived';created_at:string;updated_at:string};
 type Wishlist = {user_id:string;trek_id:string;created_at:string};
@@ -7,7 +8,8 @@ export type Database = {
   Tables: {
    treks: Table<Trek,Omit<Trek,'id'|'created_at'|'updated_at'> & {id?:string},Partial<Trek>>;
    wishlists: Table<Wishlist,{user_id:string;trek_id:string;created_at?:string},Partial<Wishlist>,[{foreignKeyName:'wishlists_trek_id_fkey';columns:['trek_id'];isOneToOne:false;referencedRelation:'treks';referencedColumns:['id']}]>;
-   profiles: Table<{user_id:string;full_name:string;phone:string|null;created_at:string},{user_id:string;full_name?:string;phone?:string}, {full_name?:string;phone?:string}>;
+   profiles: Table<{user_id:string;full_name:string;phone:string|null;email_verified:boolean;created_at:string;updated_at:string},{user_id:string;full_name?:string;phone?:string}, {full_name?:string;phone?:string}>;
+   user_preferences: Table<Preferences, Omit<Preferences,'updated_at'> & {updated_at?:string}, Partial<Omit<Preferences,'user_id'>>>;
    admins: Table<{user_id:string},{user_id:string},{user_id?:string}>;
    destinations: Table<{id:string;name:string;slug:string;created_at:string},{name:string;slug:string},{name?:string;slug?:string}>;
   };
